@@ -3,10 +3,6 @@ import pandas as pd
 import plotly.graph_objects as go
 from pathlib import Path
 
-# ============================================================
-# PAGE
-# ============================================================
-
 st.set_page_config(
     page_title="MenoSakhi | Path to ₹100 Crore",
     page_icon="🌿",
@@ -14,34 +10,32 @@ st.set_page_config(
     initial_sidebar_state="collapsed",
 )
 
-# ============================================================
+# -----------------------------
 # COLORS
-# ============================================================
-
+# -----------------------------
 CREAM = "#FBF3E7"
-CREAM_2 = "#F8EBDD"
+CREAM_2 = "#F7ECDD"
 BROWN = "#4A3020"
 BROWN_2 = "#765A43"
 GOLD = "#D5A456"
-GOLD_LIGHT = "#E6C999"
+GOLD_LIGHT = "#E7C995"
 TERRACOTTA = "#C97F58"
 PEACH = "#E9B78E"
 SAND = "#E9D5B6"
 OLIVE = "#8B8A6A"
 MUTED = "#8A705B"
 WHITE = "#FFFDF9"
-GRID = "#E8D9C6"
+GRID = "#E9DCC9"
 
-# ============================================================
+# -----------------------------
 # CSS
-# ============================================================
-
+# -----------------------------
 st.markdown(
     f"""
 <style>
 
-html {{
-    zoom: 0.90;
+html, body, [class*="css"] {{
+    font-family: Arial, sans-serif;
 }}
 
 .stApp {{
@@ -61,7 +55,7 @@ header[data-testid="stHeader"] {{
 .block-container {{
     width: 100% !important;
     max-width: 100% !important;
-    padding: 0.35rem 1.1rem 0.25rem 1.1rem !important;
+    padding: 0.45rem 0.9rem 0.3rem 0.9rem !important;
 }}
 
 [data-testid="stHorizontalBlock"] {{
@@ -72,101 +66,92 @@ header[data-testid="stHeader"] {{
     gap: 0.35rem !important;
 }}
 
-/* Real Streamlit bordered containers */
-div[data-testid="stVerticalBlockBorderWrapper"] {
+div[data-testid="stVerticalBlockBorderWrapper"] {{
+    border: 1.4px solid {GOLD_LIGHT} !important;
+    border-radius: 13px !important;
+    background: rgba(255,253,249,0.88) !important;
+    box-shadow: 0 2px 6px rgba(74,48,32,0.04) !important;
+}}
 
-    border: 1.5px solid #D9AD69 !important;
-
-    border-radius: 14px !important;
-
-    background: #FFFDF9 !important;
-
-    box-shadow: 0 2px 8px rgba(74,48,32,0.06) !important;
-
-}
-
-div[data-testid="stVerticalBlockBorderWrapper"] > div {
-
-    padding: 0.65rem 0.75rem !important;
-
-}
+div[data-testid="stVerticalBlockBorderWrapper"] > div {{
+    padding: 0.55rem 0.65rem !important;
+}}
 
 .eyebrow {{
-    font-size: 0.56rem;
+    font-size: 0.62rem;
     color: {GOLD};
     font-weight: 800;
-    letter-spacing: 0.11em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
 }}
 
 .main-title {{
-    color: {BROWN};
-    font-size: 1.72rem;
+    font-size: 2rem;
     line-height: 1;
+    color: {BROWN};
     font-weight: 850;
-    margin: 0.08rem 0 0.16rem 0;
+    margin: 0.08rem 0 0.18rem 0;
 }}
 
 .subtitle {{
+    font-size: 0.72rem;
+    line-height: 1.3;
     color: {BROWN_2};
-    font-size: 0.66rem;
-    line-height: 1.25;
-    margin: 0;
+    max-width: 900px;
 }}
 
 .section-title {{
-    color: {BROWN};
-    font-size: 0.66rem;
-    line-height: 1;
+    font-size: 0.73rem;
     font-weight: 850;
+    color: {BROWN};
     text-transform: uppercase;
-    letter-spacing: 0.045em;
-    margin: 0 0 2px 0;
+    letter-spacing: 0.04em;
+    margin-bottom: 1px;
 }}
 
 .section-sub {{
+    font-size: 0.54rem;
     color: {MUTED};
-    font-size: 0.49rem;
-    line-height: 1.15;
     margin-bottom: 1px;
 }}
 
 .kpi-label {{
-    color: {MUTED};
-    font-size: 0.48rem;
-    font-weight: 800;
+    font-size: 0.52rem;
     text-transform: uppercase;
+    font-weight: 800;
+    color: {MUTED};
 }}
 
 .kpi-value {{
-    color: {BROWN};
-    font-size: 1.28rem;
-    line-height: 1.05;
+    font-size: 1.42rem;
     font-weight: 850;
+    color: {BROWN};
     margin: 3px 0;
 }}
 
 .kpi-sub {{
+    font-size: 0.52rem;
     color: {BROWN_2};
-    font-size: 0.49rem;
-    line-height: 1.15;
+    line-height: 1.2;
 }}
 
 .eq {{
     background: {BROWN};
     color: {CREAM};
     border-radius: 8px;
-    padding: 6px 8px;
+    padding: 7px 8px;
     text-align: center;
-    font-size: 0.68rem;
-    font-weight: 800;
-    margin-top: 2px;
+    margin-top: 4px;
 }}
 
-.eq-small {{
-    font-size: 0.43rem;
-    opacity: 0.8;
-    font-weight: 400;
+.eq-main {{
+    font-size: 0.78rem;
+    font-weight: 850;
+}}
+
+.eq-sub {{
+    font-size: 0.44rem;
+    opacity: 0.82;
 }}
 
 .impact-grid {{
@@ -178,43 +163,43 @@ div[data-testid="stVerticalBlockBorderWrapper"] > div {
 .impact {{
     background: {CREAM_2};
     border: 1px solid {GOLD_LIGHT};
-    border-radius: 8px;
+    border-radius: 9px;
+    padding: 8px 5px;
     text-align: center;
-    padding: 7px 4px;
 }}
 
 .impact-num {{
-    color: {BROWN};
-    font-size: 1.1rem;
+    font-size: 1.28rem;
     font-weight: 850;
+    color: {BROWN};
 }}
 
 .impact-text {{
-    color: {BROWN_2};
-    font-size: 0.48rem;
-    font-weight: 750;
+    font-size: 0.52rem;
     text-transform: uppercase;
+    font-weight: 750;
+    color: {BROWN_2};
 }}
 
 table.fin {{
     width: 100%;
     border-collapse: collapse;
+    font-size: 0.49rem;
+    line-height: 1.15;
     color: {BROWN};
-    font-size: 0.46rem;
-    line-height: 1.1;
 }}
 
 table.fin th {{
     background: {BROWN};
     color: {CREAM};
-    padding: 3px 4px;
     border: 1px solid {GOLD_LIGHT};
-    font-weight: 700;
+    padding: 4px 4px;
+    font-weight: 750;
 }}
 
 table.fin td {{
-    padding: 3px 4px;
     border: 1px solid {GOLD_LIGHT};
+    padding: 4px 4px;
     text-align: center;
 }}
 
@@ -226,29 +211,29 @@ table.fin td:first-child {{
 .timeline {{
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 4px;
+    gap: 5px;
 }}
 
 .year {{
+    background: {WHITE};
     border: 1px solid {GOLD_LIGHT};
     border-top: 3px solid {GOLD};
     border-radius: 7px;
-    background: {WHITE};
-    padding: 5px;
-    min-height: 64px;
+    padding: 6px;
+    min-height: 76px;
 }}
 
 .year-head {{
-    color: {BROWN};
-    font-size: 0.52rem;
+    font-size: 0.57rem;
     font-weight: 850;
+    color: {BROWN};
     margin-bottom: 3px;
 }}
 
 .year-body {{
+    font-size: 0.46rem;
+    line-height: 1.35;
     color: {BROWN_2};
-    font-size: 0.42rem;
-    line-height: 1.25;
 }}
 
 </style>
@@ -256,15 +241,13 @@ table.fin td:first-child {{
     unsafe_allow_html=True,
 )
 
-# ============================================================
+# -----------------------------
 # DATA
-# ============================================================
-
+# -----------------------------
 years = ["Y1", "Y2", "Y3", "Y4", "Y5"]
 
 df = pd.DataFrame({
     "Year": years,
-
     "Revenue": [4, 16, 42, 72, 104],
 
     "D2C": [2.4, 8.0, 18.9, 28.8, 39.52],
@@ -279,7 +262,6 @@ df = pd.DataFrame({
 
     "Repeat Rate": [36, 44, 50, 55, 58],
     "Frequency": [5.54, 6.49, 7.51, 8.32, 8.97],
-
     "Customers Lakh": [0.125, 0.43243, 1.00, 1.56522, 2.12245],
     "ARPU": [3200, 3700, 4200, 4600, 4900],
 
@@ -287,67 +269,64 @@ df = pd.DataFrame({
     "EBITDA Margin": [-67.68, -22.59, -2.50, 5.38, 9.06],
 })
 
-# ============================================================
+# -----------------------------
 # HELPERS
-# ============================================================
-
-def title(text, sub=""):
+# -----------------------------
+def section_title(title, sub=""):
     st.markdown(
         f"""
-<div class="section-title">{text}</div>
+<div class="section-title">{title}</div>
 <div class="section-sub">{sub}</div>
 """,
         unsafe_allow_html=True,
     )
 
-
-def clean_chart(fig, height=150):
+def clean_chart(fig, height=170):
     fig.update_layout(
         height=height,
-        margin=dict(l=8, r=8, t=13, b=8),
+        margin=dict(l=10, r=10, t=18, b=8),
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
         hovermode=False,
         font=dict(
             family="Arial",
-            size=7,
+            size=8,
             color=BROWN_2
         ),
         legend=dict(
             orientation="h",
             yanchor="bottom",
-            y=1.02,
+            y=1.03,
+            xanchor="left",
             x=0,
-            font=dict(size=6),
+            font=dict(size=7),
         ),
     )
 
     fig.update_xaxes(
         showgrid=False,
         zeroline=False,
-        tickfont=dict(size=7, color=MUTED),
+        tickfont=dict(size=8, color=MUTED),
     )
 
     fig.update_yaxes(
         showgrid=True,
         gridcolor=GRID,
         zeroline=False,
-        tickfont=dict(size=6, color=MUTED),
+        tickfont=dict(size=7, color=MUTED),
     )
 
     return fig
 
-
-config = {
+chart_config = {
     "displayModeBar": False,
     "staticPlot": True,
 }
 
-# ============================================================
+# -----------------------------
 # HEADER
-# ============================================================
-
-left, logo = st.columns([6.8, 1.2])
+# -----------------------------
+left, logo = st.columns([6.5, 1.5])
 
 with left:
     st.markdown(
@@ -366,18 +345,19 @@ with logo:
     if Path("logo.png").exists():
         st.image("logo.png", use_container_width=True)
 
-# ============================================================
+# -----------------------------
 # KPI ROW
-# ============================================================
-
+# -----------------------------
 k1, k2, k3, k4 = st.columns(4)
 
-for col, label, value, sub in [
-    (k1, "Y5 Revenue", "₹104 Cr", "Crosses ₹100 Cr by Year 5"),
+kpis = [
+    (k1, "Y5 Revenue", "₹104 Cr", "Crosses the ₹100 Cr ambition by Year 5"),
     (k2, "Active Customers", "2.12 Lakh", "Scaled customer base"),
-    (k3, "Y5 ARPU", "₹4,900", "Repeat + purchase frequency"),
-    (k4, "Y5 EBITDA Margin", "9.1%", "Positive from Y4 @ ₹72 Cr"),
-]:
+    (k3, "Y5 ARPU", "₹4,900", "Driven by repeat and purchase frequency"),
+    (k4, "Y5 EBITDA Margin", "9.1%", "EBITDA positive from Y4 at ₹72 Cr"),
+]
+
+for col, label, value, sub in kpis:
     with col:
         with st.container(border=True):
             st.markdown(
@@ -389,16 +369,14 @@ for col, label, value, sub in [
                 unsafe_allow_html=True,
             )
 
-# ============================================================
-# ROW 1
-# ============================================================
-
+# -----------------------------
+# TOP ROW
+# -----------------------------
 c1, c2, c3 = st.columns([1.25, 1.25, 0.9])
 
-# CHANNEL
 with c1:
     with st.container(border=True):
-        title("Revenue by channel", "₹ Cr · digital-first through Y3")
+        section_title("Revenue by channel", "₹ Cr · digital-first through Y3")
 
         fig = go.Figure()
 
@@ -410,10 +388,9 @@ with c1:
         }
 
         for name, color in channel_colors.items():
-
             labels = [
-                "" if pd.isna(x) else f"{x:.1f}"
-                for x in df[name]
+                "" if pd.isna(v) else f"{v:.1f}"
+                for v in df[name]
             ]
 
             fig.add_trace(
@@ -424,24 +401,36 @@ with c1:
                     marker_color=color,
                     text=labels,
                     textposition="inside",
-                    textfont=dict(size=6),
+                    textfont=dict(size=7),
                     hoverinfo="skip",
                 )
             )
 
         fig.update_layout(barmode="stack")
-        clean_chart(fig, 158)
+
+        fig.add_trace(
+            go.Scatter(
+                x=years,
+                y=[6, 20, 47, 78, 111],
+                mode="text",
+                text=["₹4 Cr", "₹16 Cr", "₹42 Cr", "₹72 Cr", "₹104 Cr"],
+                textfont=dict(size=8, color=BROWN),
+                showlegend=False,
+                hoverinfo="skip",
+            )
+        )
+
+        clean_chart(fig, 182)
 
         st.plotly_chart(
             fig,
             use_container_width=True,
-            config=config,
+            config=chart_config,
         )
 
-# SKU
 with c2:
     with st.container(border=True):
-        title("Revenue by SKU", "₹ Cr · portfolio mix evolves")
+        section_title("Revenue by SKU", "₹ Cr · portfolio mix evolves over time")
 
         fig = go.Figure()
 
@@ -464,18 +453,17 @@ with c2:
             )
 
         fig.update_layout(barmode="stack")
-        clean_chart(fig, 158)
+        clean_chart(fig, 182)
 
         st.plotly_chart(
             fig,
             use_container_width=True,
-            config=config,
+            config=chart_config,
         )
 
-# REPEAT
 with c3:
     with st.container(border=True):
-        title("Repeat rate", "Retention strengthens each year")
+        section_title("Repeat rate", "Retention strengthens each year")
 
         fig = go.Figure()
 
@@ -484,39 +472,37 @@ with c3:
                 x=years,
                 y=df["Repeat Rate"],
                 mode="lines+markers+text",
-                line=dict(color=BROWN, width=2.4),
+                line=dict(color=BROWN, width=2.8),
                 marker=dict(
-                    size=6,
+                    size=7,
                     color=GOLD,
                     line=dict(color=BROWN, width=1)
                 ),
                 text=[f"{x}%" for x in df["Repeat Rate"]],
                 textposition="top center",
-                textfont=dict(size=7, color=BROWN),
+                textfont=dict(size=8, color=BROWN),
                 hoverinfo="skip",
             )
         )
 
-        clean_chart(fig, 158)
+        clean_chart(fig, 182)
         fig.update_layout(showlegend=False)
-        fig.update_yaxes(range=[30, 63])
+        fig.update_yaxes(range=[30, 63], ticksuffix="%")
 
         st.plotly_chart(
             fig,
             use_container_width=True,
-            config=config,
+            config=chart_config,
         )
 
-# ============================================================
-# ROW 2
-# ============================================================
+# -----------------------------
+# MIDDLE ROW
+# -----------------------------
+m1, m2, m3 = st.columns([0.9, 1.25, 1.25])
 
-c1, c2, c3 = st.columns([0.9, 1.25, 1.25])
-
-# FREQUENCY
-with c1:
+with m1:
     with st.container(border=True):
-        title("Purchase frequency", "Units / customer / year")
+        section_title("Purchase frequency", "Units per customer per year")
 
         fig = go.Figure()
 
@@ -525,32 +511,32 @@ with c1:
                 x=years,
                 y=df["Frequency"],
                 mode="lines+markers+text",
-                line=dict(color=TERRACOTTA, width=2.4),
+                line=dict(color=TERRACOTTA, width=2.8),
                 marker=dict(
-                    size=6,
+                    size=7,
                     color=PEACH,
                     line=dict(color=TERRACOTTA, width=1)
                 ),
                 text=[f"{x:.1f}×" for x in df["Frequency"]],
                 textposition="top center",
-                textfont=dict(size=7, color=BROWN),
+                textfont=dict(size=8, color=BROWN),
                 hoverinfo="skip",
             )
         )
 
-        clean_chart(fig, 140)
+        clean_chart(fig, 155)
         fig.update_layout(showlegend=False)
+        fig.update_yaxes(range=[4.5, 9.7])
 
         st.plotly_chart(
             fig,
             use_container_width=True,
-            config=config,
+            config=chart_config,
         )
 
-# CUSTOMERS + ARPU
-with c2:
+with m2:
     with st.container(border=True):
-        title("Customer base + ARPU", "Scale and monetisation grow together")
+        section_title("Customer base + ARPU", "Scale and monetisation grow together")
 
         fig = go.Figure()
 
@@ -558,17 +544,11 @@ with c2:
             go.Bar(
                 x=years,
                 y=df["Customers Lakh"],
-                name="Customers",
+                name="Active Customers",
                 marker_color=GOLD_LIGHT,
-                text=[
-                    "0.13L",
-                    "0.43L",
-                    "1.00L",
-                    "1.57L",
-                    "2.12L"
-                ],
+                text=["0.13L", "0.43L", "1.00L", "1.57L", "2.12L"],
                 textposition="outside",
-                textfont=dict(size=6, color=BROWN),
+                textfont=dict(size=7, color=BROWN),
                 hoverinfo="skip",
             )
         )
@@ -580,11 +560,11 @@ with c2:
                 yaxis="y2",
                 name="ARPU",
                 mode="lines+markers+text",
-                line=dict(color=BROWN, width=2.3),
-                marker=dict(size=5, color=BROWN),
+                line=dict(color=BROWN, width=2.6),
+                marker=dict(size=6, color=BROWN),
                 text=[f"₹{x:,}" for x in df["ARPU"]],
                 textposition="top center",
-                textfont=dict(size=6, color=BROWN),
+                textfont=dict(size=7, color=BROWN),
                 hoverinfo="skip",
             )
         )
@@ -598,28 +578,27 @@ with c2:
             )
         )
 
-        clean_chart(fig, 122)
+        clean_chart(fig, 135)
 
         st.plotly_chart(
             fig,
             use_container_width=True,
-            config=config,
+            config=chart_config,
         )
 
         st.markdown(
             """
 <div class="eq">
-2.12 Lakh × ₹4,900 ≈ ₹104 Crore
-<div class="eq-small">Active customers × ARPU</div>
+<div class="eq-main">2.12 Lakh × ₹4,900 ≈ ₹104 Crore</div>
+<div class="eq-sub">Active customers × ARPU</div>
 </div>
 """,
             unsafe_allow_html=True,
         )
 
-# LTV CAC + EBITDA
-with c3:
+with m3:
     with st.container(border=True):
-        title("LTV:CAC + EBITDA", "Customer economics mature before profitability")
+        section_title("LTV:CAC + EBITDA", "Customer economics mature before profitability")
 
         fig = go.Figure()
 
@@ -629,11 +608,11 @@ with c3:
                 y=df["LTV CAC"],
                 mode="lines+markers+text",
                 name="LTV:CAC",
-                line=dict(color=BROWN, width=2.3),
-                marker=dict(size=6, color=BROWN),
+                line=dict(color=BROWN, width=2.6),
+                marker=dict(size=7, color=BROWN),
                 text=[f"{x:.2f}×" for x in df["LTV CAC"]],
                 textposition="top center",
-                textfont=dict(size=6, color=BROWN),
+                textfont=dict(size=7, color=BROWN),
                 hoverinfo="skip",
             )
         )
@@ -643,9 +622,9 @@ with c3:
                 x=years,
                 y=df["EBITDA Margin"],
                 yaxis="y2",
-                name="EBITDA margin",
+                name="EBITDA Margin",
                 marker_color=PEACH,
-                opacity=0.65,
+                opacity=0.68,
                 hoverinfo="skip",
             )
         )
@@ -654,31 +633,31 @@ with c3:
             yaxis2=dict(
                 overlaying="y",
                 side="right",
-                showgrid=False,
                 ticksuffix="%",
+                showgrid=False,
+                range=[-80, 20],
             )
         )
 
-        clean_chart(fig, 155)
+        clean_chart(fig, 162)
 
         st.plotly_chart(
             fig,
             use_container_width=True,
-            config=config,
+            config=chart_config,
         )
 
-# ============================================================
+# -----------------------------
 # BOTTOM ROW
-# ============================================================
+# -----------------------------
+b1, b2, b3 = st.columns([1.15, 1.0, 1.85])
 
-b1, b2, b3 = st.columns([1.18, 1.02, 1.8])
-
-# GROWTH ENGINE
 with b1:
     with st.container(border=True):
-        title("Growth engine", "Core quantified levers")
+        section_title("Growth engine", "Core quantified levers")
 
-        growth_html = """
+        st.markdown(
+            """
 <table class="fin">
 <tr>
 <th>Metric</th><th>Y1</th><th>Y2</th><th>Y3</th><th>Y4</th><th>Y5</th>
@@ -687,31 +666,28 @@ with b1:
 <td>Customers</td><td>12.5K</td><td>43.2K</td><td>100K</td><td>156.5K</td><td>212.2K</td>
 </tr>
 <tr>
-<td>Repeat</td><td>36%</td><td>44%</td><td>50%</td><td>55%</td><td>58%</td>
+<td>Repeat rate</td><td>36%</td><td>44%</td><td>50%</td><td>55%</td><td>58%</td>
 </tr>
 <tr>
 <td>Derived AOV</td><td>₹1,183</td><td>₹1,104</td><td>₹1,047</td><td>₹981</td><td>₹946</td>
 </tr>
 <tr>
-<td>Frequency</td><td>5.5×</td><td>6.5×</td><td>7.5×</td><td>8.3×</td><td>9.0×</td>
+<td>Purchase frequency</td><td>5.5×</td><td>6.5×</td><td>7.5×</td><td>8.3×</td><td>9.0×</td>
 </tr>
 <tr>
 <td>ARPU</td><td>₹3,200</td><td>₹3,700</td><td>₹4,200</td><td>₹4,600</td><td>₹4,900</td>
 </tr>
 </table>
-"""
-
-        st.markdown(
-            growth_html,
+""",
             unsafe_allow_html=True,
         )
 
-# FINANCIAL QUALITY
 with b2:
     with st.container(border=True):
-        title("Financial quality", "Launch → scale → maturity")
+        section_title("Financial quality", "Launch → scale → maturity")
 
-        fin_html = """
+        st.markdown(
+            """
 <table class="fin">
 <tr>
 <th>Metric</th><th>Y1</th><th>Y3</th><th>Y5</th>
@@ -735,27 +711,24 @@ with b2:
 <td>CM2</td><td>8.6%</td><td>19.6%</td><td>25.3%</td>
 </tr>
 <tr>
-<td>EBITDA</td><td>-67.7%</td><td>-2.5%</td><td>9.1%</td>
+<td>EBITDA Margin</td><td>-67.7%</td><td>-2.5%</td><td>9.1%</td>
 </tr>
 </table>
-"""
-
-        st.markdown(
-            fin_html,
+""",
             unsafe_allow_html=True,
         )
 
-# PERSONALIZATION + TIMELINE IN SAME BOX
 with b3:
     with st.container(border=True):
 
-        topa, topb = st.columns([0.7, 1.3])
+        left_top, right_top = st.columns([0.7, 1.3])
 
-        with topa:
-            title("Personalization pays", "Y5 vs no-quiz")
+        with left_top:
+            section_title("Personalization pays", "Y5 vs no-quiz")
 
-        with topb:
-            impact_html = """
+        with right_top:
+            st.markdown(
+                """
 <div class="impact-grid">
 <div class="impact">
 <div class="impact-num">23%</div>
@@ -766,28 +739,27 @@ with b3:
 <div class="impact-text">Higher LTV</div>
 </div>
 </div>
-"""
-            st.markdown(
-                impact_html,
+""",
                 unsafe_allow_html=True,
             )
 
         st.markdown(
-            """
+            f"""
 <div style="
-border-top:1px solid #E6C999;
-margin:5px 0 5px 0;
-"></div>
+border-top:1px solid {GOLD_LIGHT};
+margin:6px 0 5px 0;">
+</div>
 """,
             unsafe_allow_html=True,
         )
 
-        title(
+        section_title(
             "Five-year scale path",
             "What changes economically as MenoSakhi grows"
         )
 
-        timeline = """
+        st.markdown(
+            """
 <div class="timeline">
 
 <div class="year">
@@ -841,53 +813,6 @@ Offline enters
 </div>
 
 </div>
-"""
-
-        st.markdown(
-            timeline,
+""",
             unsafe_allow_html=True,
         )
-
-st.markdown(
-    """
-<style>
-
-/* Make dashboard occupy the visible screen */
-section.main {
-    min-height: auto !important;
-}
-
-[data-testid="stAppViewContainer"] {
-    min-height: auto !important;
-}
-
-.stApp {
-    min-height: auto !important;
-}
-
-/* Slightly enlarge the bottom section */
-table.fin {
-    font-size: 0.56rem !important;
-}
-
-.year-head {
-    font-size: 0.62rem !important;
-}
-
-.year-body {
-    font-size: 0.50rem !important;
-    line-height: 1.35 !important;
-}
-
-.impact-num {
-    font-size: 1.35rem !important;
-}
-
-.impact-text {
-    font-size: 0.56rem !important;
-}
-
-</style>
-""",
-    unsafe_allow_html=True,
-)
