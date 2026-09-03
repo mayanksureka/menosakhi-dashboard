@@ -41,7 +41,7 @@ st.markdown(
 <style>
 
 html {{
-    zoom: 0.72;
+    zoom: 0.90;
 }}
 
 .stApp {{
@@ -73,16 +73,23 @@ header[data-testid="stHeader"] {{
 }}
 
 /* Real Streamlit bordered containers */
-[data-testid="stVerticalBlockBorderWrapper"] {{
-    border: 1px solid {GOLD_LIGHT} !important;
-    border-radius: 12px !important;
-    background: rgba(255,253,249,0.66) !important;
-    box-shadow: none !important;
-}}
+div[data-testid="stVerticalBlockBorderWrapper"] {
 
-[data-testid="stVerticalBlockBorderWrapper"] > div {{
-    padding: 0.48rem 0.58rem !important;
-}}
+    border: 1.5px solid #D9AD69 !important;
+
+    border-radius: 14px !important;
+
+    background: #FFFDF9 !important;
+
+    box-shadow: 0 2px 8px rgba(74,48,32,0.06) !important;
+
+}
+
+div[data-testid="stVerticalBlockBorderWrapper"] > div {
+
+    padding: 0.65rem 0.75rem !important;
+
+}
 
 .eyebrow {{
     font-size: 0.56rem;
@@ -840,3 +847,47 @@ Offline enters
             timeline,
             unsafe_allow_html=True,
         )
+
+st.markdown(
+    """
+<style>
+
+/* Make dashboard occupy the visible screen */
+section.main {
+    min-height: auto !important;
+}
+
+[data-testid="stAppViewContainer"] {
+    min-height: auto !important;
+}
+
+.stApp {
+    min-height: auto !important;
+}
+
+/* Slightly enlarge the bottom section */
+table.fin {
+    font-size: 0.56rem !important;
+}
+
+.year-head {
+    font-size: 0.62rem !important;
+}
+
+.year-body {
+    font-size: 0.50rem !important;
+    line-height: 1.35 !important;
+}
+
+.impact-num {
+    font-size: 1.35rem !important;
+}
+
+.impact-text {
+    font-size: 0.56rem !important;
+}
+
+</style>
+""",
+    unsafe_allow_html=True,
+)
