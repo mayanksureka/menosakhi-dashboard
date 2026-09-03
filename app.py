@@ -4,7 +4,7 @@ import plotly.graph_objects as go
 from pathlib import Path
 
 # ============================================================
-# PAGE CONFIG
+# PAGE
 # ============================================================
 
 st.set_page_config(
@@ -15,22 +15,22 @@ st.set_page_config(
 )
 
 # ============================================================
-# BRAND COLORS
+# COLORS
 # ============================================================
 
 CREAM = "#FBF3E7"
-CREAM_2 = "#F7ECDD"
+CREAM_2 = "#F8EBDD"
 BROWN = "#4A3020"
 BROWN_2 = "#765A43"
 GOLD = "#D5A456"
-GOLD_LIGHT = "#E7C995"
+GOLD_LIGHT = "#E6C999"
 TERRACOTTA = "#C97F58"
 PEACH = "#E9B78E"
 SAND = "#E9D5B6"
-MUTED = "#8B735D"
+OLIVE = "#8B8A6A"
+MUTED = "#8A705B"
 WHITE = "#FFFDF9"
-GRID = "#E5D6C1"
-GREENISH = "#89886A"
+GRID = "#E8D9C6"
 
 # ============================================================
 # CSS
@@ -41,11 +41,7 @@ st.markdown(
 <style>
 
 html {{
-    zoom: 0.80;
-}}
-
-html, body, [class*="css"] {{
-    font-family: Arial, sans-serif;
+    zoom: 0.72;
 }}
 
 .stApp {{
@@ -54,189 +50,198 @@ html, body, [class*="css"] {{
 }}
 
 header[data-testid="stHeader"] {{
-    background: rgba(0,0,0,0);
+    height: 0px;
+    background: transparent;
 }}
 
-footer {{
-    visibility: hidden;
-}}
-
-#MainMenu {{
+#MainMenu, footer {{
     visibility: hidden;
 }}
 
 .block-container {{
-    width: 100vw !important;
-    max-width: 100vw !important;
-    padding-top: 0.5rem !important;
-    padding-bottom: 0.5rem !important;
-    padding-left: 1.2vw !important;
-    padding-right: 1.2vw !important;
-}}
-
-[data-testid="stMain"] {{
     width: 100% !important;
+    max-width: 100% !important;
+    padding: 0.35rem 1.1rem 0.25rem 1.1rem !important;
 }}
 
 [data-testid="stHorizontalBlock"] {{
-    gap: 0.6rem !important;
+    gap: 0.55rem !important;
+}}
+
+[data-testid="stVerticalBlock"] {{
+    gap: 0.35rem !important;
+}}
+
+/* Real Streamlit bordered containers */
+[data-testid="stVerticalBlockBorderWrapper"] {{
+    border: 1px solid {GOLD_LIGHT} !important;
+    border-radius: 12px !important;
+    background: rgba(255,253,249,0.66) !important;
+    box-shadow: none !important;
+}}
+
+[data-testid="stVerticalBlockBorderWrapper"] > div {{
+    padding: 0.48rem 0.58rem !important;
 }}
 
 .eyebrow {{
-    font-size: 0.62rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+    font-size: 0.56rem;
     color: {GOLD};
-    font-weight: 700;
+    font-weight: 800;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
 }}
 
 .main-title {{
-    font-size: 1.8rem;
-    line-height: 1.0;
-    font-weight: 800;
     color: {BROWN};
-    margin-bottom: 0.2rem;
+    font-size: 1.72rem;
+    line-height: 1;
+    font-weight: 850;
+    margin: 0.08rem 0 0.16rem 0;
 }}
 
 .subtitle {{
-    font-size: 0.75rem;
     color: {BROWN_2};
-    line-height: 1.35;
-    margin-bottom: 0.4rem;
+    font-size: 0.66rem;
+    line-height: 1.25;
+    margin: 0;
 }}
 
-.kpi-card {{
-    background: rgba(255,253,249,0.75);
-    border: 1px solid {GOLD_LIGHT};
-    border-radius: 13px;
-    padding: 9px 11px;
-    min-height: 82px;
+.section-title {{
+    color: {BROWN};
+    font-size: 0.66rem;
+    line-height: 1;
+    font-weight: 850;
+    text-transform: uppercase;
+    letter-spacing: 0.045em;
+    margin: 0 0 2px 0;
+}}
+
+.section-sub {{
+    color: {MUTED};
+    font-size: 0.49rem;
+    line-height: 1.15;
+    margin-bottom: 1px;
 }}
 
 .kpi-label {{
     color: {MUTED};
+    font-size: 0.48rem;
+    font-weight: 800;
     text-transform: uppercase;
-    font-size: 0.56rem;
-    font-weight: 700;
-    margin-bottom: 3px;
 }}
 
 .kpi-value {{
     color: {BROWN};
-    font-size: 1.45rem;
-    font-weight: 800;
-    margin-bottom: 4px;
+    font-size: 1.28rem;
+    line-height: 1.05;
+    font-weight: 850;
+    margin: 3px 0;
 }}
 
 .kpi-sub {{
     color: {BROWN_2};
-    font-size: 0.58rem;
-    line-height: 1.25;
+    font-size: 0.49rem;
+    line-height: 1.15;
 }}
 
-.panel {{
-    background: rgba(255,253,249,0.72);
-    border: 1px solid {GOLD_LIGHT};
-    border-radius: 14px;
-    padding: 8px 10px 7px 10px;
-    margin-bottom: 7px;
-}}
-
-.panel-title {{
-    font-size: 0.70rem;
-    font-weight: 800;
-    color: {BROWN};
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}}
-
-.panel-sub {{
-    font-size: 0.56rem;
-    color: {MUTED};
-    margin-bottom: 2px;
-}}
-
-.equation-box {{
+.eq {{
     background: {BROWN};
-    border-radius: 10px;
-    padding: 8px 12px;
     color: {CREAM};
+    border-radius: 8px;
+    padding: 6px 8px;
     text-align: center;
-    margin-top: 4px;
-}}
-
-.equation-main {{
-    font-size: 0.92rem;
+    font-size: 0.68rem;
     font-weight: 800;
-}}
-
-.equation-sub {{
-    font-size: 0.54rem;
-    opacity: 0.85;
     margin-top: 2px;
 }}
 
-.impact-wrap {{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 7px;
-    margin-top: 6px;
+.eq-small {{
+    font-size: 0.43rem;
+    opacity: 0.8;
+    font-weight: 400;
 }}
 
-.impact-card {{
+.impact-grid {{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+}}
+
+.impact {{
     background: {CREAM_2};
     border: 1px solid {GOLD_LIGHT};
-    border-radius: 11px;
-    padding: 9px 7px;
+    border-radius: 8px;
+    text-align: center;
+    padding: 7px 4px;
+}}
+
+.impact-num {{
+    color: {BROWN};
+    font-size: 1.1rem;
+    font-weight: 850;
+}}
+
+.impact-text {{
+    color: {BROWN_2};
+    font-size: 0.48rem;
+    font-weight: 750;
+    text-transform: uppercase;
+}}
+
+table.fin {{
+    width: 100%;
+    border-collapse: collapse;
+    color: {BROWN};
+    font-size: 0.46rem;
+    line-height: 1.1;
+}}
+
+table.fin th {{
+    background: {BROWN};
+    color: {CREAM};
+    padding: 3px 4px;
+    border: 1px solid {GOLD_LIGHT};
+    font-weight: 700;
+}}
+
+table.fin td {{
+    padding: 3px 4px;
+    border: 1px solid {GOLD_LIGHT};
     text-align: center;
 }}
 
-.impact-number {{
-    font-size: 1.35rem;
-    font-weight: 800;
-    color: {BROWN};
-}}
-
-.impact-label {{
-    color: {BROWN_2};
-    margin-top: 3px;
-    font-size: 0.56rem;
-    font-weight: 700;
-    text-transform: uppercase;
+table.fin td:first-child {{
+    text-align: left;
+    font-weight: 650;
 }}
 
 .timeline {{
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 5px;
-    margin-top: 6px;
+    gap: 4px;
 }}
 
-.year-box {{
-    background: {WHITE};
+.year {{
+    border: 1px solid {GOLD_LIGHT};
     border-top: 3px solid {GOLD};
     border-radius: 7px;
-    padding: 6px;
-    min-height: 72px;
+    background: {WHITE};
+    padding: 5px;
+    min-height: 64px;
 }}
 
-.year-title {{
+.year-head {{
     color: {BROWN};
-    font-size: 0.63rem;
-    font-weight: 800;
+    font-size: 0.52rem;
+    font-weight: 850;
     margin-bottom: 3px;
 }}
 
-.year-copy {{
+.year-body {{
     color: {BROWN_2};
-    font-size: 0.50rem;
-    line-height: 1.3;
-}}
-
-div[data-testid="stDataFrame"] {{
-    border: 1px solid {GOLD_LIGHT};
-    border-radius: 9px;
-    overflow: hidden;
+    font-size: 0.42rem;
+    line-height: 1.25;
 }}
 
 </style>
@@ -250,9 +255,11 @@ div[data-testid="stDataFrame"] {{
 
 years = ["Y1", "Y2", "Y3", "Y4", "Y5"]
 
-data = pd.DataFrame({
+df = pd.DataFrame({
     "Year": years,
+
     "Revenue": [4, 16, 42, 72, 104],
+
     "D2C": [2.4, 8.0, 18.9, 28.8, 39.52],
     "Marketplace": [1.2, 4.48, 10.5, 15.84, 20.8],
     "Quick Commerce": [0.4, 3.52, 12.6, 20.16, 28.08],
@@ -264,18 +271,12 @@ data = pd.DataFrame({
     "Calm Infusion Tea": [0.48, 2.40, 7.56, 14.40, 22.88],
 
     "Repeat Rate": [36, 44, 50, 55, 58],
-    "Purchase Frequency": [5.54, 6.49, 7.51, 8.32, 8.97],
-    "Active Customers": [12500, 43243, 100000, 156522, 212245],
+    "Frequency": [5.54, 6.49, 7.51, 8.32, 8.97],
+
+    "Customers Lakh": [0.125, 0.43243, 1.00, 1.56522, 2.12245],
     "ARPU": [3200, 3700, 4200, 4600, 4900],
-    "AOV": [1183, 1104, 1047, 981, 946],
 
-    "CAC": [1120, 1314.14, 1232.48, 1276.57, 1284.35],
-    "LTV": [2488, 3053, 3672, 4250, 4703],
     "LTV CAC": [2.22, 2.32, 2.98, 3.33, 3.66],
-
-    "Gross Margin": [59.45, 62.11, 63.15, 63.82, 63.41],
-    "CM1": [43.57, 43.41, 42.64, 41.57, 40.31],
-    "CM2": [8.57, 12.41, 19.64, 23.57, 25.31],
     "EBITDA Margin": [-67.68, -22.59, -2.50, 5.38, 9.06],
 })
 
@@ -283,56 +284,65 @@ data = pd.DataFrame({
 # HELPERS
 # ============================================================
 
-def clean_layout(fig, height=190):
+def title(text, sub=""):
+    st.markdown(
+        f"""
+<div class="section-title">{text}</div>
+<div class="section-sub">{sub}</div>
+""",
+        unsafe_allow_html=True,
+    )
+
+
+def clean_chart(fig, height=150):
     fig.update_layout(
         height=height,
-        margin=dict(l=15, r=10, t=10, b=15),
+        margin=dict(l=8, r=8, t=13, b=8),
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
-        font=dict(family="Arial", color=BROWN_2, size=9),
         hovermode=False,
+        font=dict(
+            family="Arial",
+            size=7,
+            color=BROWN_2
+        ),
         legend=dict(
             orientation="h",
             yanchor="bottom",
             y=1.02,
-            xanchor="left",
             x=0,
-            font=dict(size=7),
+            font=dict(size=6),
         ),
     )
 
     fig.update_xaxes(
         showgrid=False,
         zeroline=False,
-        tickfont=dict(size=8, color=MUTED),
+        tickfont=dict(size=7, color=MUTED),
     )
 
     fig.update_yaxes(
         showgrid=True,
         gridcolor=GRID,
         zeroline=False,
-        tickfont=dict(size=7, color=MUTED),
+        tickfont=dict(size=6, color=MUTED),
     )
 
     return fig
 
 
-def panel_header(title, subtitle=""):
-    st.markdown(
-        f"""
-<div class="panel-title">{title}</div>
-<div class="panel-sub">{subtitle}</div>
-""",
-        unsafe_allow_html=True,
-    )
+config = {
+    "displayModeBar": False,
+    "staticPlot": True,
+}
 
 # ============================================================
 # HEADER
 # ============================================================
 
-h1, h2 = st.columns([6, 1.2])
+left, logo = st.columns([6.8, 1.2])
 
-with h1:
+with left:
     st.markdown(
         """
 <div class="eyebrow">05 · Financial roadmap</div>
@@ -345,385 +355,437 @@ improving customer economics and disciplined operating leverage.
         unsafe_allow_html=True,
     )
 
-with h2:
+with logo:
     if Path("logo.png").exists():
         st.image("logo.png", use_container_width=True)
 
 # ============================================================
-# KPI CARDS
+# KPI ROW
 # ============================================================
 
 k1, k2, k3, k4 = st.columns(4)
 
-with k1:
-    st.markdown("""
-<div class="kpi-card">
-<div class="kpi-label">Y5 Revenue</div>
-<div class="kpi-value">₹104 Cr</div>
-<div class="kpi-sub">Crosses the ₹100 Cr ambition by Year 5</div>
-</div>
-""", unsafe_allow_html=True)
-
-with k2:
-    st.markdown("""
-<div class="kpi-card">
-<div class="kpi-label">Active Customers</div>
-<div class="kpi-value">2.12 Lakh</div>
-<div class="kpi-sub">Scaled customer base supporting revenue build</div>
-</div>
-""", unsafe_allow_html=True)
-
-with k3:
-    st.markdown("""
-<div class="kpi-card">
-<div class="kpi-label">Y5 ARPU</div>
-<div class="kpi-value">₹4,900</div>
-<div class="kpi-sub">Driven by repeat and purchase frequency</div>
-</div>
-""", unsafe_allow_html=True)
-
-with k4:
-    st.markdown("""
-<div class="kpi-card">
-<div class="kpi-label">Y5 EBITDA Margin</div>
-<div class="kpi-value">9.1%</div>
-<div class="kpi-sub">EBITDA positive from Y4 at ₹72 Cr</div>
-</div>
-""", unsafe_allow_html=True)
+for col, label, value, sub in [
+    (k1, "Y5 Revenue", "₹104 Cr", "Crosses ₹100 Cr by Year 5"),
+    (k2, "Active Customers", "2.12 Lakh", "Scaled customer base"),
+    (k3, "Y5 ARPU", "₹4,900", "Repeat + purchase frequency"),
+    (k4, "Y5 EBITDA Margin", "9.1%", "Positive from Y4 @ ₹72 Cr"),
+]:
+    with col:
+        with st.container(border=True):
+            st.markdown(
+                f"""
+<div class="kpi-label">{label}</div>
+<div class="kpi-value">{value}</div>
+<div class="kpi-sub">{sub}</div>
+""",
+                unsafe_allow_html=True,
+            )
 
 # ============================================================
 # ROW 1
 # ============================================================
 
-c1, c2, c3 = st.columns([1.4, 1.4, 0.9])
+c1, c2, c3 = st.columns([1.25, 1.25, 0.9])
 
+# CHANNEL
 with c1:
-    st.markdown('<div class="panel">', unsafe_allow_html=True)
-    panel_header("Revenue by channel", "₹ Cr")
+    with st.container(border=True):
+        title("Revenue by channel", "₹ Cr · digital-first through Y3")
 
-    fig = go.Figure()
+        fig = go.Figure()
 
-    colors = {
-        "D2C": BROWN,
-        "Marketplace": GOLD,
-        "Quick Commerce": TERRACOTTA,
-        "Offline": SAND,
-    }
+        channel_colors = {
+            "D2C": BROWN,
+            "Marketplace": GOLD,
+            "Quick Commerce": TERRACOTTA,
+            "Offline": SAND,
+        }
 
-    for col, color in colors.items():
-        labels = ["" if pd.isna(v) else f"{v:.1f}" for v in data[col]]
-        fig.add_trace(go.Bar(
-            x=years,
-            y=data[col],
-            name=col,
-            marker_color=color,
-            text=labels,
-            textposition="inside",
-            hoverinfo="skip",
-        ))
+        for name, color in channel_colors.items():
 
-    fig.update_layout(barmode="stack")
-    clean_layout(fig, 200)
+            labels = [
+                "" if pd.isna(x) else f"{x:.1f}"
+                for x in df[name]
+            ]
 
-    st.plotly_chart(
-        fig,
-        use_container_width=True,
-        config={"displayModeBar": False, "staticPlot": True},
-    )
+            fig.add_trace(
+                go.Bar(
+                    x=years,
+                    y=df[name],
+                    name=name,
+                    marker_color=color,
+                    text=labels,
+                    textposition="inside",
+                    textfont=dict(size=6),
+                    hoverinfo="skip",
+                )
+            )
 
-    st.markdown('</div>', unsafe_allow_html=True)
+        fig.update_layout(barmode="stack")
+        clean_chart(fig, 158)
 
+        st.plotly_chart(
+            fig,
+            use_container_width=True,
+            config=config,
+        )
+
+# SKU
 with c2:
-    st.markdown('<div class="panel">', unsafe_allow_html=True)
-    panel_header("Revenue by SKU", "₹ Cr")
+    with st.container(border=True):
+        title("Revenue by SKU", "₹ Cr · portfolio mix evolves")
 
-    fig = go.Figure()
+        fig = go.Figure()
 
-    sku_colors = {
-        "Morning Pancake Mix": GREENISH,
-        "Night Core Capsule": BROWN,
-        "Heat Relief Roll-on": TERRACOTTA,
-        "Calm Infusion Tea": GOLD,
-    }
+        sku_colors = {
+            "Morning Pancake Mix": OLIVE,
+            "Night Core Capsule": BROWN,
+            "Heat Relief Roll-on": TERRACOTTA,
+            "Calm Infusion Tea": GOLD,
+        }
 
-    for col, color in sku_colors.items():
-        fig.add_trace(go.Bar(
-            x=years,
-            y=data[col],
-            name=col,
-            marker_color=color,
-            hoverinfo="skip",
-        ))
+        for name, color in sku_colors.items():
+            fig.add_trace(
+                go.Bar(
+                    x=years,
+                    y=df[name],
+                    name=name,
+                    marker_color=color,
+                    hoverinfo="skip",
+                )
+            )
 
-    fig.update_layout(barmode="stack")
-    clean_layout(fig, 200)
+        fig.update_layout(barmode="stack")
+        clean_chart(fig, 158)
 
-    st.plotly_chart(
-        fig,
-        use_container_width=True,
-        config={"displayModeBar": False, "staticPlot": True},
-    )
+        st.plotly_chart(
+            fig,
+            use_container_width=True,
+            config=config,
+        )
 
-    st.markdown('</div>', unsafe_allow_html=True)
-
+# REPEAT
 with c3:
-    st.markdown('<div class="panel">', unsafe_allow_html=True)
-    panel_header("Repeat rate", "Retention strengthens")
+    with st.container(border=True):
+        title("Repeat rate", "Retention strengthens each year")
 
-    fig = go.Figure()
+        fig = go.Figure()
 
-    fig.add_trace(go.Scatter(
-        x=years,
-        y=data["Repeat Rate"],
-        mode="lines+markers+text",
-        line=dict(color=BROWN, width=3),
-        marker=dict(size=7, color=GOLD),
-        text=[f"{x}%" for x in data["Repeat Rate"]],
-        textposition="top center",
-        hoverinfo="skip",
-    ))
+        fig.add_trace(
+            go.Scatter(
+                x=years,
+                y=df["Repeat Rate"],
+                mode="lines+markers+text",
+                line=dict(color=BROWN, width=2.4),
+                marker=dict(
+                    size=6,
+                    color=GOLD,
+                    line=dict(color=BROWN, width=1)
+                ),
+                text=[f"{x}%" for x in df["Repeat Rate"]],
+                textposition="top center",
+                textfont=dict(size=7, color=BROWN),
+                hoverinfo="skip",
+            )
+        )
 
-    clean_layout(fig, 200)
-    fig.update_layout(showlegend=False)
-    fig.update_yaxes(range=[30, 62])
+        clean_chart(fig, 158)
+        fig.update_layout(showlegend=False)
+        fig.update_yaxes(range=[30, 63])
 
-    st.plotly_chart(
-        fig,
-        use_container_width=True,
-        config={"displayModeBar": False, "staticPlot": True},
-    )
-
-    st.markdown('</div>', unsafe_allow_html=True)
+        st.plotly_chart(
+            fig,
+            use_container_width=True,
+            config=config,
+        )
 
 # ============================================================
 # ROW 2
 # ============================================================
 
-r1, r2, r3 = st.columns([0.9, 1.3, 1.5])
+c1, c2, c3 = st.columns([0.9, 1.25, 1.25])
 
-with r1:
-    st.markdown('<div class="panel">', unsafe_allow_html=True)
-    panel_header("Purchase frequency", "Units per customer per year")
+# FREQUENCY
+with c1:
+    with st.container(border=True):
+        title("Purchase frequency", "Units / customer / year")
 
-    fig = go.Figure()
+        fig = go.Figure()
 
-    fig.add_trace(go.Scatter(
-        x=years,
-        y=data["Purchase Frequency"],
-        mode="lines+markers+text",
-        line=dict(color=TERRACOTTA, width=3),
-        marker=dict(size=7, color=PEACH),
-        text=[f"{x:.1f}×" for x in data["Purchase Frequency"]],
-        textposition="top center",
-        hoverinfo="skip",
-    ))
-
-    clean_layout(fig, 180)
-    fig.update_layout(showlegend=False)
-
-    st.plotly_chart(
-        fig,
-        use_container_width=True,
-        config={"displayModeBar": False, "staticPlot": True},
-    )
-
-    st.markdown('</div>', unsafe_allow_html=True)
-
-with r2:
-    st.markdown('<div class="panel">', unsafe_allow_html=True)
-    panel_header("Customer base + ARPU", "Scale and monetisation")
-
-    fig = go.Figure()
-
-    active_lakh = data["Active Customers"] / 100000
-
-    fig.add_trace(go.Bar(
-        x=years,
-        y=active_lakh,
-        name="Customers",
-        marker_color=GOLD_LIGHT,
-        hoverinfo="skip",
-    ))
-
-    fig.add_trace(go.Scatter(
-        x=years,
-        y=data["ARPU"],
-        yaxis="y2",
-        name="ARPU",
-        mode="lines+markers",
-        line=dict(color=BROWN, width=3),
-        marker=dict(size=6, color=BROWN),
-        hoverinfo="skip",
-    ))
-
-    fig.update_layout(
-        yaxis2=dict(
-            overlaying="y",
-            side="right",
-            showgrid=False,
-            showticklabels=False,
+        fig.add_trace(
+            go.Scatter(
+                x=years,
+                y=df["Frequency"],
+                mode="lines+markers+text",
+                line=dict(color=TERRACOTTA, width=2.4),
+                marker=dict(
+                    size=6,
+                    color=PEACH,
+                    line=dict(color=TERRACOTTA, width=1)
+                ),
+                text=[f"{x:.1f}×" for x in df["Frequency"]],
+                textposition="top center",
+                textfont=dict(size=7, color=BROWN),
+                hoverinfo="skip",
+            )
         )
-    )
 
-    clean_layout(fig, 180)
+        clean_chart(fig, 140)
+        fig.update_layout(showlegend=False)
 
-    st.plotly_chart(
-        fig,
-        use_container_width=True,
-        config={"displayModeBar": False, "staticPlot": True},
-    )
+        st.plotly_chart(
+            fig,
+            use_container_width=True,
+            config=config,
+        )
 
-    st.markdown("""
-<div class="equation-box">
-<div class="equation-main">2.12 Lakh × ₹4,900 ≈ ₹104 Crore</div>
-<div class="equation-sub">Active customers × ARPU</div>
+# CUSTOMERS + ARPU
+with c2:
+    with st.container(border=True):
+        title("Customer base + ARPU", "Scale and monetisation grow together")
+
+        fig = go.Figure()
+
+        fig.add_trace(
+            go.Bar(
+                x=years,
+                y=df["Customers Lakh"],
+                name="Customers",
+                marker_color=GOLD_LIGHT,
+                text=[
+                    "0.13L",
+                    "0.43L",
+                    "1.00L",
+                    "1.57L",
+                    "2.12L"
+                ],
+                textposition="outside",
+                textfont=dict(size=6, color=BROWN),
+                hoverinfo="skip",
+            )
+        )
+
+        fig.add_trace(
+            go.Scatter(
+                x=years,
+                y=df["ARPU"],
+                yaxis="y2",
+                name="ARPU",
+                mode="lines+markers+text",
+                line=dict(color=BROWN, width=2.3),
+                marker=dict(size=5, color=BROWN),
+                text=[f"₹{x:,}" for x in df["ARPU"]],
+                textposition="top center",
+                textfont=dict(size=6, color=BROWN),
+                hoverinfo="skip",
+            )
+        )
+
+        fig.update_layout(
+            yaxis2=dict(
+                overlaying="y",
+                side="right",
+                showgrid=False,
+                showticklabels=False,
+            )
+        )
+
+        clean_chart(fig, 122)
+
+        st.plotly_chart(
+            fig,
+            use_container_width=True,
+            config=config,
+        )
+
+        st.markdown(
+            """
+<div class="eq">
+2.12 Lakh × ₹4,900 ≈ ₹104 Crore
+<div class="eq-small">Active customers × ARPU</div>
 </div>
-""", unsafe_allow_html=True)
-
-    st.markdown('</div>', unsafe_allow_html=True)
-
-with r3:
-    st.markdown('<div class="panel">', unsafe_allow_html=True)
-    panel_header("LTV:CAC + EBITDA", "Economics mature before profitability")
-
-    fig = go.Figure()
-
-    fig.add_trace(go.Scatter(
-        x=years,
-        y=data["LTV CAC"],
-        mode="lines+markers+text",
-        name="LTV:CAC",
-        line=dict(color=BROWN, width=3),
-        marker=dict(size=7, color=BROWN),
-        text=[f"{x:.2f}×" for x in data["LTV CAC"]],
-        textposition="top center",
-        hoverinfo="skip",
-    ))
-
-    fig.add_trace(go.Bar(
-        x=years,
-        y=data["EBITDA Margin"],
-        yaxis="y2",
-        name="EBITDA Margin",
-        marker_color=PEACH,
-        opacity=0.7,
-        hoverinfo="skip",
-    ))
-
-    fig.update_layout(
-        yaxis2=dict(
-            overlaying="y",
-            side="right",
-            ticksuffix="%",
-            showgrid=False,
+""",
+            unsafe_allow_html=True,
         )
-    )
 
-    clean_layout(fig, 180)
+# LTV CAC + EBITDA
+with c3:
+    with st.container(border=True):
+        title("LTV:CAC + EBITDA", "Customer economics mature before profitability")
 
-    st.plotly_chart(
-        fig,
-        use_container_width=True,
-        config={"displayModeBar": False, "staticPlot": True},
-    )
+        fig = go.Figure()
 
-    st.markdown('</div>', unsafe_allow_html=True)
+        fig.add_trace(
+            go.Scatter(
+                x=years,
+                y=df["LTV CAC"],
+                mode="lines+markers+text",
+                name="LTV:CAC",
+                line=dict(color=BROWN, width=2.3),
+                marker=dict(size=6, color=BROWN),
+                text=[f"{x:.2f}×" for x in df["LTV CAC"]],
+                textposition="top center",
+                textfont=dict(size=6, color=BROWN),
+                hoverinfo="skip",
+            )
+        )
+
+        fig.add_trace(
+            go.Bar(
+                x=years,
+                y=df["EBITDA Margin"],
+                yaxis="y2",
+                name="EBITDA margin",
+                marker_color=PEACH,
+                opacity=0.65,
+                hoverinfo="skip",
+            )
+        )
+
+        fig.update_layout(
+            yaxis2=dict(
+                overlaying="y",
+                side="right",
+                showgrid=False,
+                ticksuffix="%",
+            )
+        )
+
+        clean_chart(fig, 155)
+
+        st.plotly_chart(
+            fig,
+            use_container_width=True,
+            config=config,
+        )
 
 # ============================================================
-# ROW 3
+# BOTTOM ROW
 # ============================================================
 
-a, b, c = st.columns([1.15, 1.15, 0.9])
+b1, b2, b3 = st.columns([1.18, 1.02, 1.8])
 
-with a:
-    st.markdown('<div class="panel">', unsafe_allow_html=True)
-    panel_header("Growth engine", "Core quantified levers")
+# GROWTH ENGINE
+with b1:
+    with st.container(border=True):
+        title("Growth engine", "Core quantified levers")
 
-    growth = pd.DataFrame({
-        "Metric": [
-            "Active customers",
-            "Repeat rate",
-            "Derived AOV",
-            "Purchase frequency",
-            "ARPU",
-        ],
-        "Y1": ["12.5K", "36%", "₹1,183", "5.5×", "₹3,200"],
-        "Y2": ["43.2K", "44%", "₹1,104", "6.5×", "₹3,700"],
-        "Y3": ["100K", "50%", "₹1,047", "7.5×", "₹4,200"],
-        "Y4": ["156.5K", "55%", "₹981", "8.3×", "₹4,600"],
-        "Y5": ["212.2K", "58%", "₹946", "9.0×", "₹4,900"],
-    })
+        growth_html = """
+<table class="fin">
+<tr>
+<th>Metric</th><th>Y1</th><th>Y2</th><th>Y3</th><th>Y4</th><th>Y5</th>
+</tr>
+<tr>
+<td>Customers</td><td>12.5K</td><td>43.2K</td><td>100K</td><td>156.5K</td><td>212.2K</td>
+</tr>
+<tr>
+<td>Repeat</td><td>36%</td><td>44%</td><td>50%</td><td>55%</td><td>58%</td>
+</tr>
+<tr>
+<td>Derived AOV</td><td>₹1,183</td><td>₹1,104</td><td>₹1,047</td><td>₹981</td><td>₹946</td>
+</tr>
+<tr>
+<td>Frequency</td><td>5.5×</td><td>6.5×</td><td>7.5×</td><td>8.3×</td><td>9.0×</td>
+</tr>
+<tr>
+<td>ARPU</td><td>₹3,200</td><td>₹3,700</td><td>₹4,200</td><td>₹4,600</td><td>₹4,900</td>
+</tr>
+</table>
+"""
 
-    st.dataframe(
-        growth,
-        hide_index=True,
-        use_container_width=True,
-        height=185,
-    )
+        st.markdown(
+            growth_html,
+            unsafe_allow_html=True,
+        )
 
-    st.markdown('</div>', unsafe_allow_html=True)
+# FINANCIAL QUALITY
+with b2:
+    with st.container(border=True):
+        title("Financial quality", "Launch → scale → maturity")
 
-with b:
-    st.markdown('<div class="panel">', unsafe_allow_html=True)
-    panel_header("Financial quality", "Economics at scale")
+        fin_html = """
+<table class="fin">
+<tr>
+<th>Metric</th><th>Y1</th><th>Y3</th><th>Y5</th>
+</tr>
+<tr>
+<td>CAC</td><td>₹1,120</td><td>₹1,232</td><td>₹1,284</td>
+</tr>
+<tr>
+<td>LTV</td><td>₹2,488</td><td>₹3,672</td><td>₹4,703</td>
+</tr>
+<tr>
+<td>LTV:CAC</td><td>2.22×</td><td>2.98×</td><td>3.66×</td>
+</tr>
+<tr>
+<td>Gross Margin</td><td>59.4%</td><td>63.2%</td><td>63.4%</td>
+</tr>
+<tr>
+<td>CM1</td><td>43.6%</td><td>42.6%</td><td>40.3%</td>
+</tr>
+<tr>
+<td>CM2</td><td>8.6%</td><td>19.6%</td><td>25.3%</td>
+</tr>
+<tr>
+<td>EBITDA</td><td>-67.7%</td><td>-2.5%</td><td>9.1%</td>
+</tr>
+</table>
+"""
 
-    fin = pd.DataFrame({
-        "Metric": [
-            "CAC",
-            "LTV",
-            "LTV:CAC",
-            "Gross Margin",
-            "CM1",
-            "CM2",
-            "EBITDA Margin",
-        ],
-        "Y1": ["₹1,120", "₹2,488", "2.22×", "59.4%", "43.6%", "8.6%", "-67.7%"],
-        "Y3": ["₹1,232", "₹3,672", "2.98×", "63.2%", "42.6%", "19.6%", "-2.5%"],
-        "Y5": ["₹1,284", "₹4,703", "3.66×", "63.4%", "40.3%", "25.3%", "9.1%"],
-    })
+        st.markdown(
+            fin_html,
+            unsafe_allow_html=True,
+        )
 
-    st.dataframe(
-        fin,
-        hide_index=True,
-        use_container_width=True,
-        height=225,
-    )
+# PERSONALIZATION + TIMELINE IN SAME BOX
+with b3:
+    with st.container(border=True):
 
-    st.markdown('</div>', unsafe_allow_html=True)
+        topa, topb = st.columns([0.7, 1.3])
 
-with c:
-    st.markdown('<div class="panel">', unsafe_allow_html=True)
-    panel_header("Personalization pays", "Y5 vs no-quiz")
+        with topa:
+            title("Personalization pays", "Y5 vs no-quiz")
 
-    impact_html = """
-<div class="impact-wrap">
-<div class="impact-card">
-<div class="impact-number">23%</div>
-<div class="impact-label">Lower CAC</div>
+        with topb:
+            impact_html = """
+<div class="impact-grid">
+<div class="impact">
+<div class="impact-num">23%</div>
+<div class="impact-text">Lower CAC</div>
 </div>
-<div class="impact-card">
-<div class="impact-number">25%</div>
-<div class="impact-label">Higher LTV</div>
+<div class="impact">
+<div class="impact-num">25%</div>
+<div class="impact-text">Higher LTV</div>
 </div>
 </div>
 """
+            st.markdown(
+                impact_html,
+                unsafe_allow_html=True,
+            )
 
-    st.markdown(impact_html, unsafe_allow_html=True)
+        st.markdown(
+            """
+<div style="
+border-top:1px solid #E6C999;
+margin:5px 0 5px 0;
+"></div>
+""",
+            unsafe_allow_html=True,
+        )
 
-    st.markdown('</div>', unsafe_allow_html=True)
+        title(
+            "Five-year scale path",
+            "What changes economically as MenoSakhi grows"
+        )
 
-# ============================================================
-# FIVE YEAR PATH
-# ============================================================
-
-st.markdown('<div class="panel">', unsafe_allow_html=True)
-panel_header("Five-year scale path", "What changes economically as MenoSakhi grows")
-
-timeline_html = """
+        timeline = """
 <div class="timeline">
-<div class="year-box">
-<div class="year-title">Y1 · Prove</div>
-<div class="year-copy">
+
+<div class="year">
+<div class="year-head">Y1 · Prove</div>
+<div class="year-body">
 ₹4 Cr revenue<br>
 12.5K customers<br>
 36% repeat<br>
@@ -731,9 +793,9 @@ Digital-only
 </div>
 </div>
 
-<div class="year-box">
-<div class="year-title">Y2 · Build</div>
-<div class="year-copy">
+<div class="year">
+<div class="year-head">Y2 · Build</div>
+<div class="year-body">
 ₹16 Cr revenue<br>
 43.2K customers<br>
 44% repeat<br>
@@ -741,9 +803,9 @@ Q-commerce scales
 </div>
 </div>
 
-<div class="year-box">
-<div class="year-title">Y3 · Scale</div>
-<div class="year-copy">
+<div class="year">
+<div class="year-head">Y3 · Scale</div>
+<div class="year-body">
 ₹42 Cr revenue<br>
 1.0L customers<br>
 50% repeat<br>
@@ -751,9 +813,9 @@ Q-commerce scales
 </div>
 </div>
 
-<div class="year-box">
-<div class="year-title">Y4 · Break even</div>
-<div class="year-copy">
+<div class="year">
+<div class="year-head">Y4 · Break even</div>
+<div class="year-body">
 ₹72 Cr revenue<br>
 EBITDA positive<br>
 55% repeat<br>
@@ -761,18 +823,20 @@ Offline enters
 </div>
 </div>
 
-<div class="year-box">
-<div class="year-title">Y5 · ₹100 Cr+</div>
-<div class="year-copy">
+<div class="year">
+<div class="year-head">Y5 · ₹100 Cr+</div>
+<div class="year-body">
 ₹104 Cr revenue<br>
 2.12L customers<br>
 58% repeat<br>
 9.1% EBITDA
 </div>
 </div>
+
 </div>
 """
 
-st.markdown(timeline_html, unsafe_allow_html=True)
-
-st.markdown('</div>', unsafe_allow_html=True)
+        st.markdown(
+            timeline,
+            unsafe_allow_html=True,
+        )
